@@ -7,7 +7,7 @@ from cryptography.hazmat.primitives.ciphers.aead import AESCCM
 def Algo1(key):
 	f = Fernet(key)
 	target_file = open("raw_data/store_in_me.enc","rb")
-	secret_data = ""
+	secret_data = b""
 	for line in target_file:
 		secret_data = secret_data + line
 	data = f.decrypt(secret_data)
@@ -20,7 +20,7 @@ def Algo1_extented(filename, key1, key2):
 	target_filename = 'files/' + filename
 	file = open(source_filename,'rb')
 	target_file = open(target_filename,'wb')
-	raw = ""
+	raw = b""
 	for line in file:
 		raw = raw + line
 	secret_data = f.decrypt(line)
@@ -35,7 +35,7 @@ def Algo2(filename, key, nonce):
 	target_filename = 'files/' + filename
 	file = open(source_filename,'rb')
 	target_file = open(target_filename,'wb')
-	raw = ""
+	raw = b""
 	for line in file:
 		raw = raw + line
 	secret_data = chacha.decrypt(nonce, raw, aad)
@@ -50,7 +50,7 @@ def Algo3(filename, key, nonce):
 	target_filename = 'files/' + filename
 	file = open(source_filename,'rb')
 	target_file = open(target_filename,'wb')
-	raw = ""
+	raw = b""
 	for line in file:
 		raw = raw + line
 	secret_data = aesgcm.decrypt(nonce, raw, aad)
@@ -65,7 +65,7 @@ def Algo4(filename, key, nonce):
 	target_filename = 'files/' + filename
 	file = open(source_filename,'rb')
 	target_file = open(target_filename,'wb')
-	raw = ""
+	raw = b""
 	for line in file:
 		raw = raw + line
 	secret_data = aesccm.decrypt(nonce, raw, aad)
@@ -75,7 +75,7 @@ def Algo4(filename, key, nonce):
 	
 def decrypter():
 	tools.empty_folder('files')
-	key_1 = ""
+	key_1 = b""
 	list_directory = tools.list_dir('key')
 	filename = './key/' + list_directory[0]
 	public_key = open(filename,"rb")
@@ -83,7 +83,7 @@ def decrypter():
 		key_1 = key_1 + line
 	public_key.close()
 	secret_information = Algo1(key_1)
-	list_information = secret_information.split(':::::')
+	list_information = secret_information.split(b':::::')
 	key_1_1 = list_information[0]
 	key_1_2 = list_information[1]
 	key_2 = list_information[2]

@@ -18,7 +18,7 @@ def Algo1_extented(filename, key1, key2):
 	target_filename = 'encrypted/' + filename
 	file = open(source_filename,'rb')
 	target_file = open(target_filename,'wb')
-	raw = ""
+	raw = b""
 	for line in file:
 		raw = raw + line
 	secret_data = f.encrypt(raw)
@@ -33,7 +33,7 @@ def Algo2(filename, key, nonce):
 	target_filename = 'encrypted/' + filename
 	file = open(source_filename,'rb')
 	target_file = open(target_filename,'wb')
-	raw = ""
+	raw = b""
 	for line in file:
 		raw = raw + line
 	secret_data = chacha.encrypt(nonce, raw, aad)
@@ -48,7 +48,7 @@ def Algo3(filename, key, nonce):
 	target_filename = 'encrypted/' + filename
 	file = open(source_filename,'rb')
 	target_file = open(target_filename,'wb')
-	raw = ""
+	raw = b""
 	for line in file:
 		raw = raw + line
 	secret_data = aesgcm.encrypt(nonce, raw, aad)
@@ -63,7 +63,7 @@ def Algo4(filename, key, nonce):
 	target_filename = 'encrypted/' + filename
 	file = open(source_filename,'rb')
 	target_file = open(target_filename,'wb')
-	raw = ""
+	raw = b""
 	for line in file:
 		raw = raw + line
 	secret_data = aesccm.encrypt(nonce, raw, aad)
@@ -92,7 +92,7 @@ def encrypter():
 			Algo3(files[index],key_3,nonce12)
 		else:
 			Algo4(files[index],key_4,nonce13)
-	secret_information = (key_1_1)+":::::"+(key_1_2)+":::::"+(key_2)+":::::"+(key_3)+":::::"+(key_4)+":::::"+(nonce12)+":::::"+(nonce13)
+	secret_information = (key_1_1)+b":::::"+(key_1_2)+b":::::"+(key_2)+b":::::"+(key_3)+b":::::"+(key_4)+b":::::"+(nonce12)+b":::::"+(nonce13)
 	Algo1(secret_information,key_1)
 	public_key = open("./key/Taale_Ki_Chabhi.pem","wb")
 	public_key.write(key_1)
